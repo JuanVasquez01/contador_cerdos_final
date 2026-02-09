@@ -338,14 +338,31 @@ def calcular_tendencia(df, dias=7):
 # ==================== FUNCIONES DE EXPORTACIÓN MEJORADAS ====================
 class PDFWithLogo(FPDF):
     def header(self):
-        # Logo en el encabezado (logo1.png)
+        """Encabezado profesional para el PDF"""
+        # Configurar márgenes
+        self.set_margins(10, 15, 10)
+
+        # ===== LOGO IZQUIERDO =====
         try:
-            logo1_path = r"D:\codigos\contador_cerdos_final\image\logo1.png"
+            logo1_path = r"D:\codigos\contador_cerdos_final\image\logo1sinfondo.png"
             if os.path.exists(logo1_path):
-                # Usar image con coordenadas precisas
-                self.image(logo1_path, x=170, y=8, w=30, h=15)
+                # Logo en esquina superior izquierda
+                self.image(logo1_path, x=10, y=8, w=35, h=50)
         except:
             pass
+
+        # ===== LOGO DERECHO =====
+        try:
+            logo_path = r"D:\codigos\contador_cerdos\imagenes\logo.png"
+            if os.path.exists(logo_path):
+                # Logo en esquina superior derecha
+                self.image(logo_path, x=165, y=8, w=35, h=15)
+        except:
+            pass
+
+        # ===== TÍTULO PRINCIPAL CENTRADO =====
+        self.set_font('Arial', 'B', 18)
+        self.set_text_color(30, 58, 138)  # Color azul oscuro #1E3A
 
         # Título
         self.set_font('Arial', 'B', 16)
@@ -383,7 +400,7 @@ def exportar_a_pdf(df, titulo="Reporte de Conteo de Cerdos"):
     pdf.set_right_margin(10)
 
     # Información del reporte
-    pdf.set_font("Arial", '', 10)
+    pdf.set_font("Arial", '', 8)
     pdf.cell(0, 8, f"Fecha de generación: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}", 0, 1)
     pdf.cell(0, 8, f"Total de registros: {len(df):,}", 0, 1)
     pdf.ln(5)
@@ -421,7 +438,7 @@ def exportar_a_pdf(df, titulo="Reporte de Conteo de Cerdos"):
 
     # Tabla de datos
     pdf.set_font("Arial", 'B', 12)
-    pdf.cell(0, 10, "Datos de Embarques (primeros 30 registros):", 0, 1)
+    pdf.cell(0, 8, "Datos de Embarques (primeros 30 registros):", 0, 1)
 
     columnas_mostrar = ['fecha', 'lote_cerdos', 'placa_vehiculo', 'sitio_origen',
                         'sitio_destino', 'total_neto_cerdos']
@@ -431,7 +448,7 @@ def exportar_a_pdf(df, titulo="Reporte de Conteo de Cerdos"):
         df_muestra = df[columnas_mostrar].head(30)
 
         # Anchos de columna proporcionales
-        anchos = [25, 30, 25, 40, 40, 25]
+        anchos = [18, 20, 25, 40, 40, 35]
 
         # Encabezados
         pdf.set_font("Arial", 'B', 9)
@@ -447,7 +464,7 @@ def exportar_a_pdf(df, titulo="Reporte de Conteo de Cerdos"):
                 if columna == 'fecha' and hasattr(row[columna], 'strftime'):
                     valor = row[columna].strftime('%d/%m/%Y')
                 # Truncar si es muy largo
-                if len(valor) > 15:
+                if len(valor) > 50:
                     valor = valor[:12] + '...'
                 pdf.cell(anchos[i], 6, valor, 1, 0, 'C')
             pdf.ln()
@@ -456,7 +473,7 @@ def exportar_a_pdf(df, titulo="Reporte de Conteo de Cerdos"):
 
 
 def exportar_a_excel(df):
-    """Exportar DataFrame a Excel con formato mejorado"""
+    """Exportar DataFrame a Excel """
     output = BytesIO()
 
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
@@ -483,7 +500,7 @@ def exportar_a_excel(df):
 
         # Logo en Excel
         try:
-            logo1_path = r"D:\codigos\contador_cerdos\imagenes\logo1.png"
+            logo1_path = r"D:\codigos\contador_cerdos_final\image\logo1sinfondo.png"
             if os.path.exists(logo1_path):
                 worksheet = writer.sheets['Resumen']
                 # Insertar logo en la parte superior
@@ -647,7 +664,7 @@ def crear_grafico_tendencia_mensual(df):
         return None
 
 
-# ==================== INTERFAZ PRINCIPAL MEJORADA ====================
+# ==================== INTERFAZ PRINCIPAL ====================
 def main():
     # Header principal optimizado
     col_header1, col_header2, col_header3 = st.columns([3, 4, 2])
@@ -658,13 +675,13 @@ def main():
     with col_header2:
         st.markdown('<h1 class="main-header">📊 Dashboard Analítico</h1>',
                     unsafe_allow_html=True)
-        st.markdown('<p style="text-align: center; color: #64748B; margin-top: -10px;">Sistema de Conteo de Cerdos</p>',
+        st.markdown('<div style="text-align: center; color: #64748B; margin-top: -10px;">Sistema de Conteo de Cerdos</div>',
                     unsafe_allow_html=True)
 
     with col_header3:
         # Logo en la parte superior derecha
         try:
-            logo1_path = r"D:\codigos\contador_cerdos\imagenes\logo1.png"
+            logo1_path = r"D:\codigos\contador_cerdos_final\image\logo1sinfondo.png"
             if os.path.exists(logo1_path):
                 logo1 = cargar_logo(logo1_path, tamaño=(120, 80))
                 if logo1:

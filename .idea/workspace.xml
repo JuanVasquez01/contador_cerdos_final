@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="22f08b53-c080-4927-b4c3-e369264abb8f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/contador_cerdos_final.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="22f08b53-c080-4927-b4c3-e369264abb8f" name="Changes" comment="Crud usuario y login">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/dashboard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/login.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +25,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "JuanVasquez01"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/JuanVasquez01/contador_cerdos_final.git",
+    "accountId": "3b037b40-d1a7-467b-8263-ee1c021ec4f8"
+  }
+}]]></component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -116,12 +126,25 @@
       <option name="presentableId" value="Default" />
       <updated>1770577339016</updated>
       <workItem from="1770577340070" duration="2718000" />
-      <workItem from="1770580091374" duration="6964000" />
+      <workItem from="1770580091374" duration="16113000" />
     </task>
+    <task id="LOCAL-00001" summary="Crud usuario y login">
+      <option name="closed" value="true" />
+      <created>1770593747066</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1770593747066</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Crud usuario y login" />
+    <option name="LAST_COMMIT_MESSAGE" value="Crud usuario y login" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

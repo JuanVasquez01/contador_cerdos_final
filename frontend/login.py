@@ -1,4 +1,3 @@
-# login.py - ARCHIVO COMPLETO CORREGIDO
 import streamlit as st
 import requests
 import os
@@ -13,26 +12,17 @@ API_URL = os.getenv("API_URL", "http://localhost:8000")
 
 def mostrar_pagina_login():
     """Mostrar página de login"""
-    # ¡IMPORTANTE: NO usar st.set_page_config() aquí!
 
     # Estilos CSS para login
     st.markdown("""
     <style>
-        .login-container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            background: white;
-        }
         .login-header {
             text-align: center;
             margin-bottom: 2rem;
         }
         .login-title {
             font-size: 2rem;
-            color: #1E3A8A;
+            color: #d5dee6;
             font-weight: bold;
         }
         .login-subtitle {
@@ -61,11 +51,11 @@ def mostrar_pagina_login():
     """, unsafe_allow_html=True)
 
     # Contenedor principal
-    st.markdown('<div class="login-container">', unsafe_allow_html=True)
+    #st.markdown('<div class="login-container">', unsafe_allow_html=True)
 
     # Logo
     try:
-        logo_path = r"D:\codigos\contador_cerdos\imagenes\logo1.png"
+        logo_path = r"D:\codigos\contador_cerdos_final\image\logo1sinfondo.png"
         if os.path.exists(logo_path):
             from PIL import Image
             logo = Image.open(logo_path)
@@ -122,7 +112,7 @@ def mostrar_pagina_login():
                             st.session_state["remember_me"] = True
 
                         st.success("✅ ¡Inicio de sesión exitoso!")
-                        st.balloons()
+                        #st.balloons()
                         time.sleep(1)
 
                         # Marcar para redirección y recargar
@@ -154,7 +144,7 @@ def mostrar_pagina_login():
     """, unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
-    st.stop()  # ¡IMPORTANTE: Detener ejecución aquí!
+    st.stop()  # Detener ejecución
 
 
 def verificar_autenticacion():

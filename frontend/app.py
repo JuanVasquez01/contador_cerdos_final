@@ -308,7 +308,7 @@ def obtener_metricas_generales(df):
 class PDFWithLogo(FPDF):
     def header(self):
         try:
-            logo1_path = r"D:\codigos\contador_cerdos_final\image\logo1.png"
+            logo1_path = r"D:\codigos\contador_cerdos_final\image\logo1sinfondo.png"
             if os.path.exists(logo1_path):
                 self.image(logo1_path, x=170, y=8, w=30, h=15)
         except:
@@ -332,20 +332,85 @@ class PDFWithLogo(FPDF):
         self.cell(0, 5, 'Sistema de Conteo de Cerdos - Reporte generado automáticamente', 0, 0, 'C')
 
 
+# ==================== FUNCIÓN PDF CON TEXTO MULTILÍNEA ====================
 def exportar_a_pdf(df, titulo="Reporte de Conteo de Cerdos"):
-    """Exportar DataFrame a PDF"""
-    pdf = PDFWithLogo()
+    """Exportar DataFrame a PDF con texto que se ajusta en múltiples líneas"""
+
+    class PDFMultilinea(FPDF):
+        def header(self):
+            try:
+                logo1_path = r"D:\codigos\contador_cerdos_final\image\logo1sinfondo.png"
+                if os.path.exists(logo1_path):
+                    self.image(logo1_path, x=10, y=8, w=35, h=15)
+            except:
+                pass
+
+            self.set_font('Arial', 'B', 16)
+            self.cell(0, 15, 'REPORTE DE CONTEO DE CERDOS', 0, 1, 'C')
+            self.set_font('Arial', 'I', 10)
+            self.cell(0, 5, 'Sistema de Gestión de Embarques', 0, 1, 'C')
+            self.line(10, 30, 200, 30)
+            self.ln(10)
+
+        def multi_cell_table(self, w, h, txt, border=0, align='L', fill=False, max_lines=None):
+            """Versión mejorada de multi_cell para tablas"""
+            txt = str(txt)
+
+            # Si el texto cabe en una línea, usar cell normal
+            if self.get_string_width(txt) <= w:
+                self.cell(w, h, txt, border, 0, align, fill)
+                return h
+
+            # Calcular cuántas líneas se necesitan
+            lines = []
+            words = txt.split(' ')
+            current_line = ''
+
+            for word in words:
+                test_line = f"{current_line} {word}".strip()
+                if self.get_string_width(test_line) <= w:
+                    current_line = test_line
+                else:
+                    if current_line:
+                        lines.append(current_line)
+                    current_line = word
+
+            if current_line:
+                lines.append(current_line)
+
+            # Limitar líneas si se especifica
+            if max_lines and len(lines) > max_lines:
+                lines = lines[:max_lines]
+                if len(lines) == max_lines:
+                    lines[-1] = lines[-1][:self.get_string_width_inverse(w - 10)] + '...'
+
+            # Dibujar múltiples líneas
+            x = self.get_x()
+            y = self.get_y()
+
+            for i, line in enumerate(lines):
+                if i > 0:  # Si no es la primera línea
+                    self.set_xy(x, self.get_y() + h / 2)  # Espaciado entre líneas
+
+                self.cell(w, h, line, border, 2, align, fill)
+                if i < len(lines) - 1:  # Si no es la última línea
+                    self.set_xy(x, self.get_y())
+
+            # Calcular altura total utilizada
+            altura_total = (len(lines) * h) + ((len(lines) - 1) * (h / 2))
+            return altura_total
+
+    pdf = PDFMultilinea()
     pdf.alias_nb_pages()
     pdf.add_page()
 
-    pdf.set_left_margin(10)
-    pdf.set_right_margin(10)
-
+    # Información del reporte
     pdf.set_font("Arial", '', 10)
     pdf.cell(0, 8, f"Fecha de generación: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}", 0, 1)
     pdf.cell(0, 8, f"Total de registros: {len(df):,}", 0, 1)
     pdf.ln(5)
 
+    # Logo central
     try:
         logo_path = r"D:\codigos\contador_cerdos\imagenes\logo.png"
         if os.path.exists(logo_path):
@@ -354,6 +419,7 @@ def exportar_a_pdf(df, titulo="Reporte de Conteo de Cerdos"):
     except:
         pass
 
+    # Estadísticas principales
     pdf.set_font("Arial", 'B', 12)
     pdf.cell(0, 10, "Estadísticas Principales:", 0, 1)
     pdf.set_font("Arial", '', 10)
@@ -374,35 +440,212 @@ def exportar_a_pdf(df, titulo="Reporte de Conteo de Cerdos"):
 
     pdf.ln(8)
 
+    # ==================== TABLA CON TEXTO MULTILÍNEA ====================
     pdf.set_font("Arial", 'B', 12)
-    pdf.cell(0, 10, "Datos de Embarques (primeros 30 registros):", 0, 1)
+    pdf.cell(0, 10, "Datos de Embarques:", 0, 1)
 
-    columnas_mostrar = ['fecha', 'lote_cerdos', 'placa_vehiculo', 'sitio_origen',
-                        'sitio_destino', 'total_neto_cerdos']
-    columnas_mostrar = [col for col in columnas_mostrar if col in df.columns]
+    # Definir configuración de columnas
+    config_columnas = [
+        {'campo': 'fecha', 'nombre': 'Fecha', 'ancho': 25, 'alineacion': 'C', 'max_lineas': 1},
+        {'campo': 'lote_cerdos', 'nombre': 'Lote', 'ancho': 30, 'alineacion': 'C', 'max_lineas': 2},
+        {'campo': 'placa_vehiculo', 'nombre': 'Placa', 'ancho': 25, 'alineacion': 'C', 'max_lineas': 1},
+        {'campo': 'sitio_origen', 'nombre': 'Origen', 'ancho': 45, 'alineacion': 'L', 'max_lineas': 3},
+        {'campo': 'sitio_destino', 'nombre': 'Destino', 'ancho': 45, 'alineacion': 'L', 'max_lineas': 3},
+        {'campo': 'total_neto_cerdos', 'nombre': 'Cerdos', 'ancho': 25, 'alineacion': 'R', 'max_lineas': 1}
+    ]
 
-    if columnas_mostrar and len(df) > 0:
-        df_muestra = df[columnas_mostrar].head(30)
-        anchos = [25, 30, 25, 40, 40, 25]
+    # Filtrar columnas que existen
+    config_columnas = [col for col in config_columnas if col['campo'] in df.columns]
 
-        pdf.set_font("Arial", 'B', 9)
-        for i, columna in enumerate(columnas_mostrar):
-            pdf.cell(anchos[i], 8, str(columna).replace('_', ' ').title(), 1, 0, 'C')
-        pdf.ln()
+    if not config_columnas or len(df) == 0:
+        pdf.cell(0, 10, "No hay datos para mostrar", 0, 1)
+        return pdf
 
-        pdf.set_font("Arial", '', 8)
-        for _, row in df_muestra.iterrows():
-            for i, columna in enumerate(columnas_mostrar):
-                valor = str(row[columna])
-                if columna == 'fecha' and hasattr(row[columna], 'strftime'):
-                    valor = row[columna].strftime('%d/%m/%Y')
-                if len(valor) > 15:
-                    valor = valor[:12] + '...'
-                pdf.cell(anchos[i], 6, valor, 1, 0, 'C')
-            pdf.ln()
+    # Tomar muestra de datos
+    df_muestra = df.head(30)
+
+    # Calcular anchos totales y posición
+    anchos = [col['ancho'] for col in config_columnas]
+    total_ancho = sum(anchos)
+    x_inicial = max(10, (210 - total_ancho) / 2)  # Mínimo margen izquierdo
+
+    # ==================== FUNCIÓN PARA PROCESAR TEXTO ====================
+    def procesar_texto(pdf, texto, ancho, max_lineas=None, fuente='Arial', tamaño=8):
+        """Dividir texto en líneas que caben en el ancho"""
+        if not isinstance(texto, str):
+            texto = str(texto)
+
+        # Si es fecha, formatear
+        if isinstance(texto, datetime) or (hasattr(texto, 'strftime') and texto != 'NaT'):
+            try:
+                texto = texto.strftime('%d/%m/%Y')
+            except:
+                texto = str(texto)
+
+        # Si es número, formatear
+        if isinstance(texto, (int, float)):
+            texto = f"{texto:,.0f}" if texto == int(texto) else f"{texto:,.2f}"
+
+        # Configurar fuente temporal para cálculo
+        pdf.set_font(fuente, '', tamaño)
+
+        # Si el texto cabe en una línea, retornar como está
+        if pdf.get_string_width(texto) <= ancho:
+            return [texto]
+
+        # Dividir en palabras
+        palabras = texto.split(' ')
+        lineas = []
+        linea_actual = ''
+
+        for palabra in palabras:
+            prueba = f"{linea_actual} {palabra}".strip()
+
+            if pdf.get_string_width(prueba) <= ancho:
+                linea_actual = prueba
+            else:
+                if linea_actual:
+                    lineas.append(linea_actual)
+                linea_actual = palabra
+
+        if linea_actual:
+            lineas.append(linea_actual)
+
+        # Limitar líneas si es necesario
+        if max_lineas and len(lineas) > max_lineas:
+            lineas = lineas[:max_lineas]
+            # Truncar última línea si es muy larga
+            if lineas:
+                ultima_linea = lineas[-1]
+                while pdf.get_string_width(ultima_linea + '...') > ancho and len(ultima_linea) > 3:
+                    ultima_linea = ultima_linea[:-1]
+                lineas[-1] = ultima_linea + '...'
+
+        return lineas
+
+    # ==================== DIBUJAR ENCABEZADOS ====================
+    pdf.set_font("Arial", 'B', 9)
+    pdf.set_fill_color(30, 58, 138)  # Color azul oscuro
+    pdf.set_text_color(255, 255, 255)  # Texto blanco
+
+    pdf.set_x(x_inicial)
+    y_inicial = pdf.get_y()
+
+    for config in config_columnas:
+        nombre = config['nombre']
+        ancho = config['ancho']
+        alineacion = config['alineacion']
+
+        # Procesar texto del encabezado
+        lineas_encabezado = procesar_texto(pdf, nombre, ancho, max_lineas=2, tamaño=9)
+
+        # Calcular altura del encabezado
+        altura_encabezado = len(lineas_encabezado) * 4 + 4  # 4mm por línea + padding
+
+        # Dibujar encabezado multilínea
+        x_actual = pdf.get_x()
+        y_actual = pdf.get_y()
+
+        for i, linea in enumerate(lineas_encabezado):
+            if i == 0:
+                pdf.cell(ancho, altura_encabezado, linea, 1, 2, alineacion, fill=True)
+                pdf.set_xy(x_actual + ancho, y_actual)
+            else:
+                pdf.set_xy(x_actual, pdf.get_y())
+                pdf.cell(ancho, 4, linea, 'LR', 2, alineacion, fill=True)
+                pdf.set_xy(x_actual + ancho, pdf.get_y() - 4)
+
+        # Restaurar posición para siguiente columna
+        pdf.set_xy(x_actual + ancho, y_actual)
+
+    pdf.ln(altura_encabezado)
+
+    # Restaurar color de texto
+    pdf.set_text_color(0, 0, 0)
+
+    # ==================== DIBUJAR DATOS ====================
+    pdf.set_font("Arial", '', 8)
+
+    # Altura base de fila (se ajustará dinámicamente)
+    altura_base_fila = 6
+    fill = False
+
+    for idx, fila in df_muestra.iterrows():
+        # Calcular altura máxima necesaria para esta fila
+        alturas_por_columna = []
+
+        for config in config_columnas:
+            campo = config['campo']
+            ancho = config['ancho']
+            max_lineas = config.get('max_lineas', 3)
+
+            if campo in fila:
+                valor = fila[campo]
+                lineas = procesar_texto(pdf, valor, ancho, max_lineas, tamaño=8)
+                altura_necesaria = len(lineas) * 3 + 2  # 3mm por línea + padding
+                alturas_por_columna.append(altura_necesaria)
+
+        altura_fila = max(alturas_por_columna) if alturas_por_columna else altura_base_fila
+
+        # Dibujar fila
+        pdf.set_x(x_inicial)
+        y_fila_inicio = pdf.get_y()
+
+        for i, config in enumerate(config_columnas):
+            campo = config['campo']
+            ancho = config['ancho']
+            alineacion = config['alineacion']
+            max_lineas = config.get('max_lineas', 3)
+
+            if campo in fila:
+                valor = fila[campo]
+                lineas = procesar_texto(pdf, valor, ancho, max_lineas, tamaño=8)
+
+                # Configurar color de fondo
+                if fill:
+                    pdf.set_fill_color(240, 240, 240)
+                else:
+                    pdf.set_fill_color(255, 255, 255)
+
+                # Dibujar celda con múltiples líneas
+                x_celda = pdf.get_x()
+                y_celda = pdf.get_y()
+
+                for j, linea in enumerate(lineas):
+                    if j == 0:
+                        # Primera línea - dibujar bordes completos
+                        bordes = 'LTR' if i == 0 else 'TR'
+                        if i == len(config_columnas) - 1:
+                            bordes += 'R'
+                        pdf.cell(ancho, altura_fila, linea, bordes, 2, alineacion, fill=fill)
+                    else:
+                        # Líneas adicionales - solo bordes laterales
+                        pdf.set_xy(x_celda, pdf.get_y())
+                        pdf.cell(ancho, 3, linea, 'LR', 2, alineacion, fill=fill)
+
+                # Rellenar espacio restante si hay menos líneas
+                lineas_dibujadas = len(lineas)
+                if lineas_dibujadas * 3 < altura_fila:
+                    espacio_extra = altura_fila - (lineas_dibujadas * 3)
+                    pdf.set_xy(x_celda, pdf.get_y())
+                    pdf.cell(ancho, espacio_extra, '', 'LRB', 2, alineacion, fill=fill)
+
+                # Posicionar para siguiente columna
+                pdf.set_xy(x_celda + ancho, y_celda)
+
+        # Mover a siguiente fila
+        pdf.set_xy(x_inicial, y_fila_inicio + altura_fila)
+        fill = not fill
+
+    # ==================== PIE INFORMATIVO ====================
+    pdf.ln(10)
+    pdf.set_font("Arial", 'I', 8)
+    pdf.cell(0, 5, f"*Mostrando {len(df_muestra)} de {len(df)} registros. Texto ajustado automáticamente.*", 0, 1, 'C')
+
+    if len(df) > 30:
+        pdf.cell(0, 5, f"*Nota: Para ver todos los registros, exporte en formato Excel.*", 0, 1, 'C')
 
     return pdf
-
 
 def exportar_a_excel(df):
     """Exportar DataFrame a Excel"""
@@ -429,7 +672,7 @@ def exportar_a_excel(df):
         workbook = writer.book
 
         try:
-            logo1_path = r"D:\codigos\contador_cerdos\imagenes\logo1.png"
+            logo1_path = r"D:\codigos\contador_cerdos_final\image\logo1sinfondo.png"
             if os.path.exists(logo1_path):
                 worksheet = writer.sheets['Resumen']
                 worksheet.insert_image('A1', logo1_path, {'x_scale': 0.4, 'y_scale': 0.4})
@@ -910,7 +1153,7 @@ def main():
 
     with col_header3:
         try:
-            logo1_path = r"D:\codigos\contador_cerdos\imagenes\logo1.png"
+            logo1_path = r"D:\codigos\contador_cerdos_final\image\logo1sinfondo.png"
             if os.path.exists(logo1_path):
                 logo1 = cargar_logo(logo1_path, tamaño=(120, 80))
                 if logo1:
