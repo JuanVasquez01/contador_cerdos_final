@@ -55,7 +55,7 @@ def cargar_logo(ruta, tamaño=(200, 80)):
 def mostrar_logo_sidebar():
     """Mostrar logo en el sidebar con mejor calidad"""
     try:
-        logo_path = r"D:\codigos\contador_cerdos_final\image\logo.png"
+        logo_path = r"/frontend/image\logo.png"
         if os.path.exists(logo_path):
             # Cargar con mayor resolución
             logo = cargar_logo(logo_path, tamaño=(300, 120))
@@ -344,7 +344,7 @@ class PDFWithLogo(FPDF):
 
         # ===== LOGO IZQUIERDO =====
         try:
-            logo1_path = r"D:\codigos\contador_cerdos_final\image\logo1sinfondo.png"
+            logo1_path = r"/frontend/image\logo1sinfondo.png"
             if os.path.exists(logo1_path):
                 # Logo en esquina superior izquierda
                 self.image(logo1_path, x=10, y=8, w=35, h=50)
@@ -500,7 +500,7 @@ def exportar_a_excel(df):
 
         # Logo en Excel
         try:
-            logo1_path = r"D:\codigos\contador_cerdos_final\image\logo1sinfondo.png"
+            logo1_path = r"/frontend/image\logo1sinfondo.png"
             if os.path.exists(logo1_path):
                 worksheet = writer.sheets['Resumen']
                 # Insertar logo en la parte superior
@@ -681,7 +681,7 @@ def main():
     with col_header3:
         # Logo en la parte superior derecha
         try:
-            logo1_path = r"D:\codigos\contador_cerdos_final\image\logo1sinfondo.png"
+            logo1_path = r"/frontend/image\logo1sinfondo.png"
             if os.path.exists(logo1_path):
                 logo1 = cargar_logo(logo1_path, tamaño=(120, 80))
                 if logo1:

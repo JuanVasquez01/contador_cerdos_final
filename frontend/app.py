@@ -64,11 +64,11 @@ with st.sidebar:
 
 # ==================== CONFIGURACIÓN DE BASE DE DATOS ====================
 DATABASE_CONFIG = {
-    'dbname': 'contador_cerdos',
-    'user': 'postgres',
-    'password': 'a1b2c3d4',
-    'host': 'localhost',
-    'port': '5432'
+    'dbname': os.getenv("DB_NAME", "contador_cerdos"),
+    'user': os.getenv("DB_USER", "postgres"),
+    'password': os.getenv("DB_PASSWORD", "a1b2c3d4"),
+    'host': os.getenv("DB_HOST", "db"), # 'db_contador' es el nombre del contenedor de la base de datos
+    'port': os.getenv("DB_PORT", "5432")
 }
 
 
@@ -87,7 +87,7 @@ def cargar_logo(ruta, tamaño=(200, 80)):
 def mostrar_logo_sidebar():
     """Mostrar logo en el sidebar con mejor calidad"""
     try:
-        logo_path = r"D:\codigos\contador_cerdos_final\image\logo.png"
+        logo_path = "./image/logo.png"
         if os.path.exists(logo_path):
             logo = cargar_logo(logo_path, tamaño=(300, 120))
             if logo:
@@ -308,7 +308,7 @@ def obtener_metricas_generales(df):
 class PDFWithLogo(FPDF):
     def header(self):
         try:
-            logo1_path = r"D:\codigos\contador_cerdos_final\image\logo1sinfondo.png"
+            logo1_path = "./image/logo1sinfondo.png"
             if os.path.exists(logo1_path):
                 self.image(logo1_path, x=170, y=8, w=30, h=15)
         except:
@@ -321,7 +321,7 @@ class PDFWithLogo(FPDF):
         self.set_y(-15)
         self.set_font('Arial', 'I', 8)
         try:
-            logo_path = r"D:\codigos\contador_cerdos\imagenes\logo.png"
+            logo_path = "./image/logo.png"
             if os.path.exists(logo_path):
                 self.image(logo_path, x=10, y=self.get_y() - 5, w=20, h=10)
         except:
@@ -339,7 +339,7 @@ def exportar_a_pdf(df, titulo="Reporte de Conteo de Cerdos"):
     class PDFMultilinea(FPDF):
         def header(self):
             try:
-                logo1_path = r"D:\codigos\contador_cerdos_final\image\logo1sinfondo.png"
+                logo1_path = "./image/logo1sinfondo.png"
                 if os.path.exists(logo1_path):
                     self.image(logo1_path, x=10, y=8, w=35, h=15)
             except:
@@ -672,7 +672,7 @@ def exportar_a_excel(df):
         workbook = writer.book
 
         try:
-            logo1_path = r"D:\codigos\contador_cerdos_final\image\logo1sinfondo.png"
+            logo1_path = "./image/logo1sinfondo.png"
             if os.path.exists(logo1_path):
                 worksheet = writer.sheets['Resumen']
                 worksheet.insert_image('A1', logo1_path, {'x_scale': 0.4, 'y_scale': 0.4})
@@ -1153,7 +1153,7 @@ def main():
 
     with col_header3:
         try:
-            logo1_path = r"D:\codigos\contador_cerdos_final\image\logo1sinfondo.png"
+            logo1_path = "./image/logo1sinfondo.png"
             if os.path.exists(logo1_path):
                 logo1 = cargar_logo(logo1_path, tamaño=(120, 80))
                 if logo1:

@@ -4,11 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="22f08b53-c080-4927-b4c3-e369264abb8f" name="Changes" comment="Crud usuario y login">
+    <list default="true" id="22f08b53-c080-4927-b4c3-e369264abb8f" name="Changes" comment="se crea encabezado de pdf">
+      <change afterPath="$PROJECT_DIR$/backend/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/crear_admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/dashboard.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/login.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/image/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image/logo1.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/image/logo1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image/logo1sinfondo.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/image/logo1sinfondo.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +27,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Dockerfile" />
         <option value="Python Script" />
       </list>
     </option>
@@ -25,18 +35,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "JuanVasquez01"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;JuanVasquez01&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/JuanVasquez01/contador_cerdos_final.git",
-    "accountId": "3b037b40-d1a7-467b-8263-ee1c021ec4f8"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/JuanVasquez01/contador_cerdos_final.git&quot;,
+    &quot;accountId&quot;: &quot;3b037b40-d1a7-467b-8263-ee1c021ec4f8&quot;
   }
-}]]></component>
+}</component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -52,6 +62,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.crear_admin.executor": "Run",
     "Python.init_db.executor": "Run",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -77,8 +88,35 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\codigos\contador_cerdos_final\image" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\codigos\contador_cerdos_final\frontend" />
+    </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.crear_admin">
+    <configuration name="crear_admin" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="contador_cerdos_final" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backend/crear_admin.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="init_db" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="contador_cerdos_final" />
       <option name="ENV_FILES" value="" />
@@ -106,6 +144,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.crear_admin" />
         <item itemvalue="Python.init_db" />
       </list>
     </recent_temporary>
@@ -126,7 +165,13 @@
       <option name="presentableId" value="Default" />
       <updated>1770577339016</updated>
       <workItem from="1770577340070" duration="2718000" />
-      <workItem from="1770580091374" duration="16113000" />
+      <workItem from="1770580091374" duration="28712000" />
+      <workItem from="1770904942542" duration="652000" />
+      <workItem from="1770924184258" duration="1625000" />
+      <workItem from="1770988416945" duration="1997000" />
+      <workItem from="1771273996884" duration="2000000" />
+      <workItem from="1771338609795" duration="4600000" />
+      <workItem from="1771858809952" duration="5240000" />
     </task>
     <task id="LOCAL-00001" summary="Crud usuario y login">
       <option name="closed" value="true" />
@@ -136,7 +181,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770593747066</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="se crea encabezado de pdf">
+      <option name="closed" value="true" />
+      <created>1770602749101</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1770602749101</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -144,7 +197,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Crud usuario y login" />
-    <option name="LAST_COMMIT_MESSAGE" value="Crud usuario y login" />
+    <MESSAGE value="se crea encabezado de pdf" />
+    <option name="LAST_COMMIT_MESSAGE" value="se crea encabezado de pdf" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -159,5 +213,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/contador_cerdos_final$init_db.coverage" NAME="init_db Coverage Results" MODIFIED="1770583824208" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/contador_cerdos_final$crear_admin.coverage" NAME="crear_admin Coverage Results" MODIFIED="1771863836340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />
   </component>
 </project>

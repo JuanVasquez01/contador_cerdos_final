@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: cerdos_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: a1b2c3d4
+      POSTGRES_DB: contador_cerdos
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: cerdos_backend
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:a1b2c3d4@db:5432/contador_cerdos
+      - SECRET_KEY=123
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    container_name: cerdos_frontend
+    restart: always
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://backend:8000  # Así se comunican los contenedores internamente
+      - DB_HOST=db
+      - DB_PASSWORD=a1b2c3d4
+    depends_on:
+      - backend
+      - db
+
+volumes:
+  postgres_data:

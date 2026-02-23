@@ -55,7 +55,7 @@ def mostrar_pagina_login():
 
     # Logo
     try:
-        logo_path = r"D:\codigos\contador_cerdos_final\image\logo1sinfondo.png"
+        logo_path = r"/frontend/image\logo1sinfondo.png"
         if os.path.exists(logo_path):
             from PIL import Image
             logo = Image.open(logo_path)
