@@ -353,7 +353,7 @@ class PDFWithLogo(FPDF):
 
         # ===== LOGO DERECHO =====
         try:
-            logo_path = r"D:\codigos\contador_cerdos\imagenes\logo.png"
+            logo_path = r"/frontend/image\logo.png"
             if os.path.exists(logo_path):
                 # Logo en esquina superior derecha
                 self.image(logo_path, x=165, y=8, w=35, h=15)
@@ -376,7 +376,7 @@ class PDFWithLogo(FPDF):
 
         # Logo en el pie de página (logo.png)
         try:
-            logo_path = r"D:\codigos\contador_cerdos\imagenes\logo.png"
+            logo_path = r"/frontend/image\logo.png"
             if os.path.exists(logo_path):
                 self.image(logo_path, x=10, y=self.get_y() - 5, w=20, h=10)
         except:
@@ -407,7 +407,7 @@ def exportar_a_pdf(df, titulo="Reporte de Conteo de Cerdos"):
 
     # Logo central más grande (logo.png)
     try:
-        logo_path = r"D:\codigos\contador_cerdos\imagenes\logo.png"
+        logo_path = r"/frontend/image\logo.png"
         if os.path.exists(logo_path):
             # Centrar el logo
             pdf.image(logo_path, x=(210 - 60) / 2, y=50, w=60, h=30)

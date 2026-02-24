@@ -64,12 +64,20 @@ with st.sidebar:
 
 # ==================== CONFIGURACIÓN DE BASE DE DATOS ====================
 DATABASE_CONFIG = {
-    'dbname': os.getenv("DB_NAME", "contador_cerdos"),
-    'user': os.getenv("DB_USER", "postgres"),
-    'password': os.getenv("DB_PASSWORD", "a1b2c3d4"),
-    'host': os.getenv("DB_HOST", "db"), # 'db_contador' es el nombre del contenedor de la base de datos
-    'port': os.getenv("DB_PORT", "5432")
+    'dbname': 'contador_cerdos',
+    'user': 'postgres',
+    'password': 'a1b2c3d4',
+    'host': 'localhost',
+    'port': '5432'
 }
+
+#DATABASE_CONFIG = {
+    #'dbname': os.getenv("DB_NAME", "contador_cerdos"),
+   # 'user': os.getenv("DB_USER", "postgres"),
+   # 'password': os.getenv("DB_PASSWORD", "a1b2c3d4"),
+   # 'host': os.getenv("DB_HOST", "db"), # 'db_contador' es el nombre del contenedor de la base de datos
+  #  'port': os.getenv("DB_PORT", "5432")
+#}
 
 
 # ==================== FUNCIONES PARA LOGOS MEJORADAS ====================
