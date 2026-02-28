@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="22f08b53-c080-4927-b4c3-e369264abb8f" name="Changes" comment="se crearon imagenes docker">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/dashboard.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -162,7 +161,9 @@
       <workItem from="1771273996884" duration="2000000" />
       <workItem from="1771338609795" duration="4600000" />
       <workItem from="1771858809952" duration="9603000" />
-      <workItem from="1771937975263" duration="1221000" />
+      <workItem from="1771937975263" duration="6776000" />
+      <workItem from="1772047949468" duration="2149000" />
+      <workItem from="1772156320389" duration="5494000" />
     </task>
     <task id="LOCAL-00001" summary="Crud usuario y login">
       <option name="closed" value="true" />
@@ -188,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771865433800</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="se crearon imagenes docker">
+      <option name="closed" value="true" />
+      <created>1771942043313</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1771942043313</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

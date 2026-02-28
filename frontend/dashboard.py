@@ -38,7 +38,6 @@ DATABASE_CONFIG = {
     'port': '5432'
 }
 
-
 # ==================== FUNCIONES PARA LOGOS MEJORADAS ====================
 def cargar_logo(ruta, tamaño=(200, 80)):
     """Cargar y redimensionar logo manteniendo calidad"""
